@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.quiz_view, name='quiz'),  # main page of the app
+    path('', views.main_page, name='main'),
 ]

@@ -3,5 +3,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('tests_app.urls')),  # send root traffic to your app
+    path('accounts/', include('accounts.urls')),  # Login + Logout
+    path('', include('tests_app.urls')),          # Main pages
 ]

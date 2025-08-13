@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
-def quiz_view(request):
-    return render(request, 'tests_app/quiz.html')
+@login_required
+def main_page(request):
+    return render(request, 'main.html')
