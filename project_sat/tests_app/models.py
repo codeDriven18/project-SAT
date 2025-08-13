@@ -1,19 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
-# Custom User model
-class User(AbstractUser):
-    ROLE_CHOICES = [
-        ('student', 'Student'),
-        ('teacher', 'Teacher'),
-        ('admin', 'Admin'),
-    ]
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='student')
-    full_name = models.CharField(max_length=100, blank=True)
-
-    def __str__(self):
-        return f"{self.username} ({self.role})"
-
+from django.conf import settings
 
 # Test / Quiz
 class Test(models.Model):
@@ -46,7 +33,7 @@ class Variant(models.Model):
 
 # Answers by Students
 class Answer(models.Model):
-    student = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'role': 'student'})
+    student = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,limit_choices_to={'role': 'student'})
     variant = models.ForeignKey(Variant, on_delete=models.CASCADE)
     submitted_at = models.DateTimeField(auto_now_add=True)
 

@@ -81,10 +81,12 @@ STATICFILES_DIRS = [BASE_DIR / 'static']  # Global static folder
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'tests_app.User'
+AUTH_USER_MODEL = 'accounts.User'
 
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
 LOGIN_REDIRECT_URL = '/'   # Redirect after login
 LOGOUT_REDIRECT_URL = '/accounts/login/'  # Redirect after logout
+
+
