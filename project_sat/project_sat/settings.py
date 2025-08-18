@@ -1,15 +1,12 @@
 from pathlib import Path
 import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
 SECRET_KEY = 'django-insecure-w6-@k=ri3y6jv8eoih0*8ope_nb9c)496d$=n(i%i)c_d@vsu-'
 DEBUG = True
 ALLOWED_HOSTS = []
 
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -22,7 +19,6 @@ INSTALLED_APPS = [
     'tests_app',
 ]
 
-# C:\proggggg\project-SAT\project_sat\project_sat\settings.py
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
@@ -44,7 +40,7 @@ ROOT_URLCONF = 'project_sat.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Global templates folder
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -59,7 +55,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project_sat.wsgi.application'
 
-# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -67,7 +62,6 @@ DATABASES = {
     }
 }
 
-# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -75,17 +69,14 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']  # Global static folder
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -93,7 +84,7 @@ AUTH_USER_MODEL = 'accounts.User'
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
-LOGIN_REDIRECT_URL = '/'   # Redirect after login
-LOGOUT_REDIRECT_URL = '/accounts/login/'  # Redirect after logout
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 

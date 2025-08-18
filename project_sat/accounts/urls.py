@@ -4,6 +4,6 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('tests_app.urls')),   # only include once
+    path('', include('tests_app.urls')),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]

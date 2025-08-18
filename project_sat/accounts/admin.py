@@ -1,4 +1,3 @@
-# C:\proggggg\project-SAT\project_sat\accounts\admin.py
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import User
