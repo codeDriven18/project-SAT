@@ -18,3 +18,4 @@ class TestAdmin(admin.ModelAdmin):
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Variant)
 admin.site.register(Answer)
+

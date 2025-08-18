@@ -1,17 +1,44 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="{% static 'tests_app/css/style.css' %}">
+  <meta charset="utf-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#0f172a;color:#e5e7eb;margin:0;display:grid;place-items:center;height:100vh}
+    .card{background:#111827;border:1px solid #1f2937;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35);padding:28px;max-width:360px;width:92%}
+    h1{margin:0 0 12px 0;font-size:22px}
+    .field{margin:12px 0}
+    label{display:block;margin-bottom:6px;font-size:13px;color:#9ca3af}
+    input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #374151;background:#0b1220;color:#e5e7eb}
+    .btn{margin-top:14px;width:100%;padding:10px 12px;border-radius:10px;border:0;background:#6366f1;color:white;font-weight:600;cursor:pointer}
+    .links{margin-top:12px;text-align:center;font-size:13px}
+    a{color:#93c5fd;text-decoration:none}
+  </style>
 </head>
 <body>
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
+  <form method="post" class="card">
+    <h1>Sign in</h1>
+    {% csrf_token %}
+    {% if form.errors %}
+      <div style="background:#7f1d1d;border:1px solid #b91c1c;padding:8px;border-radius:8px;margin-bottom:10px">
+        Check your username/password.
+      </div>
+    {% endif %}
+    <div class="field">
+      <label for="id_username">Username</label>
+      {{ form.username }}
+    </div>
+    <div class="field">
+      <label for="id_password">Password</label>
+      {{ form.password }}
+    </div>
+    <button class="btn" type="submit">Login</button>
+    <div class="links">
+      <a href="/">← Back to site</a>
+    </div>
+  </form>
 </body>
 </html>
