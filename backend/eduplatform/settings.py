@@ -72,33 +72,30 @@ TEMPLATES = [
 WSGI_APPLICATION = 'eduplatform.wsgi.application'
 
 
-# Database settings
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME', default='eduplatform'),
-        'USER': config('DB_USER', default='bushstep'),
-        'PASSWORD': config('DB_PASSWORD', default='ButterfliesAreMyOnlyWeakness!'),
-        'HOST': config('DB_HOST', default='localhost'),
-        'PORT': config('DB_PORT', default='5432'),
-        'CONN_MAX_AGE': 600,
-    }
-}
-
-# Prefer DATABASE_URL if provided (supports postgres, mysql, sqlite, etc.)
+# Database settings - Use DATABASE_URL for Render deployment
 DATABASE_URL = config('DATABASE_URL', default=None)
-if DATABASE_URL:
-    DATABASES['default'] = dj_database_url.parse(
-        DATABASE_URL,
-        conn_max_age=600,
-        ssl_require=not DEBUG,
-    )
 
-# Optional: when developing locally with no DB available, allow SQLite fallback if DEBUG=True
-if DEBUG and not DATABASE_URL:
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DATABASE_URL:
+    # Use Render's PostgreSQL database
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True,  # Render requires SSL
+        )
+    }
+else:
+    # Fallback for local development
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('DB_NAME', default='eduplatform'),
+            'USER': config('DB_USER', default='bushstep'),
+            'PASSWORD': config('DB_PASSWORD', default='ButterfliesAreMyOnlyWeakness!'),
+            'HOST': config('DB_HOST', default='localhost'),
+            'PORT': config('DB_PORT', default='5432'),
+            'CONN_MAX_AGE': 600,
+        }
     }
 
 
@@ -127,6 +124,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Render deployment settings
+if not DEBUG:
+    # Security settings for production
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
+    
+    # Static files serving
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # Media (user uploads)
 MEDIA_URL = '/media/'
