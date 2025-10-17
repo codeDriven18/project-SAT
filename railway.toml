@@ -1,7 +1,18 @@
 [build]
+# Use Dockerfile to build the multi-service app
 builder = "dockerfile"
+dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "gunicorn eduplatform.wsgi:application --bind 0.0.0.0:$PORT"
+# Start command (executed in container)
+startCommand = "cd /app/backend && gunicorn eduplatform.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 3 --worker-class sync --timeout 120"
+
+# Health check configuration
 healthcheckPath = "/api/docs/"
 healthcheckTimeout = 30
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+# Resource allocation
+memory = "1GB"
+cpu = "0.5"

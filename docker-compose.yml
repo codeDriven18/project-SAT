@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - DATABASE_URL=postgresql://postgres:labv1kmSOkSHfpaTuFbCwRdlGhDoddBI@switchyard.proxy.rlyw.net:25893/railway
+      - SECRET_KEY=django-insecure-8s2k&y^p#x1r*9u_3l%4kz!q0o^a7b3d
+      - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
+    volumes:
+      - ./backend:/app/backend
+      - ./student-frontend/dist:/app/backend/static/student-frontend
+      - ./teacher-frontend/dist:/app/backend/static/teacher-frontend
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=railway
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=labv1kmSOkSHfpaTuFbCwRdlGhDoddBI
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  postgres-data:
+
+networks:
+  app-network:
+    driver: bridge
